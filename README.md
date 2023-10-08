@@ -1,20 +1,9 @@
 # go.reading.list
 
+This is an example of Go web service and application that uses a Postgres database.
 
+Taken from the Pluralsight course 'Building Go Web Services and Applications' by Josh Duffney
 
-## Routes ##
-
-Health check: curl localhost:4000/v1/healthcheck
-
-Get books on list: curl localhost:4000/v1/books
-
-Add book to list: curl -X POST localhost:4000/v1/books
-
-Get details of book with ID 2: curl localhost:4000/v1/books/2
-
-Update details of book with ID 2: curl -X PUT localhost:4000/v1/books/2
-
-Delete book with ID 2: curl -X DELETE localhost:4000/v1/books/2
 
 ## Postgres Database ##
 
@@ -47,3 +36,22 @@ As using 'bigserial' type  for 'id' need sequence permissions: GRANT USAGE, SELE
 The variable with dsn: export READINGLIST_DB_DSN 'postgres://readinglist:pa55w0rd@localhost:5432/readinglist?sslmode=disable'
 
 Also remember to import the 'database/sql' and 'github.com/lib/pq' (will need go get github.com/lib/pq) packages.
+
+## Routes ##
+
+Health check: curl localhost:4000/v1/healthcheck
+
+Create a post body: BODY='{"title":"Lord of the Rings","published":1954,"pages":1170,"genres":["Fiction","Fantasy"],"rating":4.7}'
+Create a post body: BODY='{"title":"The Hitchhiker'\''s Guide to the Galaxy","published":1979,"pages":224,"genres":["Fiction","Comedy","Science Fiction"],"rating":4.5}'
+Create a post body: BODY='{"title":"A Game of Thrones","published":1996,"pages":694,"genres":["Fiction","Fantasy"],"rating":4.4}'
+
+Add book to list: curl -i -d "$BODY" localhost:4000/v1/books
+
+Get books on list: curl localhost:4000/v1/books
+
+Get details of book with ID 2: curl localhost:4000/v1/books/2
+
+Update rating of a book: BODY='{"title":"The Hitchhiker'\''s Guide to the Galaxy","published":1979,"pages":224,"genres":["Fiction","Comedy","Science Fiction"],"rating":4.6}'
+Update details of book with ID 2: curl -X PUT -d "$BODY" localhost:4000/v1/books/2
+
+Delete book with ID 2: curl -X DELETE localhost:4000/v1/books/2

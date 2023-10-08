@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"reading.list/internal/data"
 	"time"
 
 	_ "github.com/lib/pq"
@@ -23,6 +24,7 @@ type config struct {
 type application struct {
 	config config
 	logger *log.Logger
+	models data.Models
 }
 
 func main() {
@@ -34,11 +36,6 @@ func main() {
 	flag.Parse()
 
 	logger := log.New(os.Stdout, "", log.Ldate|log.Ltime)
-
-	app := application{
-		config: cfg,
-		logger: logger,
-	}
 
 	db, err := sql.Open("postgres", cfg.dsn)
 	if err != nil {
@@ -55,6 +52,12 @@ func main() {
 		logger.Fatal(err)
 	}
 	logger.Printf("database connection successful")
+
+	app := application{
+		config: cfg,
+		logger: logger,
+		models: data.NewModels(db),
+	}
 
 	addr := fmt.Sprintf(":%d", cfg.port)
 
