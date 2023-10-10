@@ -21,7 +21,7 @@ Change to the 'readinglist' database: \c readinglist
 
 Create table: CREATE TABLE IF NOT EXISTS books (
                 id bigserial PRIMARY KEY,
-                create_at timestamp(0) with time zone NOT NULL DEFAULT NOW(),
+                created_at timestamp(0) with time zone NOT NULL DEFAULT NOW(),
                 title text NOT NULL,
                 published integer NOT NULL,
                 pages integer NOT NULL,
@@ -33,11 +33,11 @@ Grant the 'readinglist' user access to the table: GRANT SELECT, INSERT, UPDATE, 
 
 As using 'bigserial' type  for 'id' need sequence permissions: GRANT USAGE, SELECT ON SEQUENCE books_id_seq TO readinglist;
 
-The variable with dsn: export READINGLIST_DB_DSN 'postgres://readinglist:pa55w0rd@localhost:5432/readinglist?sslmode=disable'
+Set environment variable with dsn: export READINGLIST_DB_DSN 'postgres://readinglist:pa55w0rd@localhost:5432/readinglist?sslmode=disable'
 
 Also remember to import the 'database/sql' and 'github.com/lib/pq' (will need go get github.com/lib/pq) packages.
 
-## Routes ##
+## Routes and Test Data ##
 
 Health check: curl localhost:4000/v1/healthcheck
 

@@ -77,6 +77,7 @@ func (app *application) getCreateBooksHandler(w http.ResponseWriter, r *http.Req
 		err = app.models.Books.Insert(book)
 		if err != nil {
 			http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
+			log.Printf("Error creating new book in DB: %v\n", err)
 			return
 		}
 
