@@ -37,7 +37,7 @@ Set environment variable with dsn: export READINGLIST_DB_DSN 'postgres://reading
 
 Also remember to import the 'database/sql' and 'github.com/lib/pq' (will need go get github.com/lib/pq) packages.
 
-## Routes and Test Data ##
+## API Routes and Test Data ##
 
 Health check: curl localhost:4000/v1/healthcheck
 
@@ -55,3 +55,10 @@ Update rating of a book: BODY='{"title":"The Hitchhiker'\''s Guide to the Galaxy
 Update details of book with ID 2: curl -X PUT -d "$BODY" localhost:4000/v1/books/2
 
 Delete book with ID 2: curl -X DELETE localhost:4000/v1/books/2
+
+## Web Routes ##
+
+Home which lists all books: http://localhost:8080/
+
+Fileserver for css: http://localhost:8080/static  (note how the final / must be removed to get the css file)
+
